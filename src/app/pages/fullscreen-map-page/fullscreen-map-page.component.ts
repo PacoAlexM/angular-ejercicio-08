@@ -32,8 +32,8 @@ mapboxgl.accessToken = environment.mapboxKey;
 })
 export class FullscreenMapPageComponent implements AfterViewInit {
     divElement = viewChild<ElementRef>('map');
-
     map = signal<mapboxgl.Map|null>(null);
+    
     zoom = signal(14);
     coords = signal({
         lng: -74.5,
@@ -78,6 +78,10 @@ export class FullscreenMapPageComponent implements AfterViewInit {
         map.on('load', () => {
             console.log('Map loaded');
         });
+
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.ScaleControl());
 
         this.map.set(map);
     }
