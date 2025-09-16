@@ -74,4 +74,14 @@ export class MarkersPageComponent implements AfterViewInit {
 
         this.map()?.flyTo({ center: lngLat, });
     }
+
+    deleteMarker(marker: MapMarker) {
+        if (!this.map()) return;
+
+        const map = this.map()!;
+
+        marker.mapboxMarker.remove();
+
+        this.markers.set(this.markers().filter(i => i.id !== marker.id));
+    }
 }

@@ -1,13 +1,15 @@
-<div #map class="h-[calc(100vh-64px)] bg-red-500"></div>
+<div #map class="h-[calc(70vh-64px)] md:h-[calc(100vh-64px)] bg-red-500"></div>
 
-<section class="fixed w-[260px] bg-white rounded top-20 left-10 p-5">
+<section class="h-[30vh] md:fixed md:w-[260px] bg-white md:rounded md:top-20 md:left-10 p-5 overflow-y-scroll">
     <h2 class="text-xl font-bold text-black mb-2">Marcadores</h2>
 
     <div class="flex flex-col gap-2">
         @for (marker of markers(); track marker.id) {
-            <div class="flex justify-between" (click)="flyToMarker(marker.mapboxMarker.getLngLat())">
-                <label class="label text-black text-xs">{{ marker.mapboxMarker.getLngLat() | json }}</label>
-                <input type="radio" name="radio-12" checked="checked" class="radio" [style]="{ backgroundColor: marker.mapboxMarker._color }" />
+            <div class="flex flex-row items-center gap-2" (click)="flyToMarker(marker.mapboxMarker.getLngLat())" (dblclick)="deleteMarker(marker)">
+                <label class="label w-100">
+                    <pre class=" text-black text-xs">{{ marker.mapboxMarker.getLngLat() | json }}</pre>
+                    <input type="radio" class="radio bg-gray-50 checked:bg-gray-50" name="radio-12" checked="checked" [style]="{ color: marker.mapboxMarker._color, borderColor: marker.mapboxMarker._color, border: '1px solid' }" />
+                 </label>
             </div>
         } @empty {
             <div class="flex justify-center items-center bg-blue-100 rounded py-5">
